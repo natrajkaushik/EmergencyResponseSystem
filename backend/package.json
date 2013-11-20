@@ -1,0 +1,10 @@
+{
+	"name": "Google-Voice-Client",
+	"version": "0.0.1",
+	"private": true,
+  	"dependencies": {
+    	"voice.js": "*",
+    	"underscore": "*",
+    	"mongoose": "*"  
+    }
+}
