@@ -5,6 +5,7 @@
   	"dependencies": {
     	"voice.js": "*",
     	"underscore": "*",
-    	"mongoose": "*"  
+    	"mongoose": "*" ,
+    	"request" : "*" 
     }
 }
