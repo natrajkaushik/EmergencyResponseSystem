@@ -1,0 +1,12 @@
+{
+	"name": "Emergency-Response-System-Website",
+	"version": "0.0.1",
+	"private": "true",
+	"dependencies": {
+		"express": "*",
+		"passport": "*",
+		"passport-local": "*",
+		"underscore": "*",
+		"crypto": "*"
+	}
+}
