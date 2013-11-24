@@ -2,7 +2,7 @@ module.exports = function (app, passport) {
 
   /***  User routes ***/
   var users = require("../controllers/users.js");
-  //app.get("/login", users.login);
+  app.get("/login", users.serveLoginPage);
   app.get("/register", users.serveRegisterPage);
   app.post("/register", users.register);
   //app.get("/logout", users.logout);

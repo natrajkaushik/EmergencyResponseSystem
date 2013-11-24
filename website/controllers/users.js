@@ -32,3 +32,7 @@ exports.register = function(req, res, next){
 	res.send(email + " Successfully registered");
 };
 
+exports.serveLoginPage = function(req, res){
+	res.sendfile("/login.html", {root: "./public/"});
+};
+
