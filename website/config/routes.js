@@ -9,7 +9,8 @@ module.exports = function (app, passport) {
   app.get("/login", users.serveLoginPage);
   app.post("/login", users.login);
 
-  //app.get("/logout", users.logout);
+  app.post("/logout", users.logout);
+  
   //app.post("/users", users.create);
   //app.post("/users/session", passport.authenticate("local", 
     //{
@@ -20,6 +21,6 @@ module.exports = function (app, passport) {
   
   /*** Home ***/
   var home = require("../controllers/home.js");
-  app.get("/", home.index);
-  app.get("/home", home.index);
+  app.get("/", home.authenticate, home.index);
+  app.get("/home", home.authenticate, home.index);
 };
