@@ -1,74 +1,97 @@
 <!DOCTYPE html>
 <html lang="en"><head>
     <meta charset="utf-8">
-    <title>Buzz Guardian - Sign Up</title>
+    <title>Emergency Response System - Sign Up</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <!-- Le styles -->
+     <!-- Le styles -->
     <link href="./css/bootstrap.css" rel="stylesheet">
     <style type="text/css">
-      body {
-        padding-top: 40px;
-        padding-bottom: 40px;
-        background-color: #f5f5f5;
-        /* background: url(www/img/GeorgiaTech.jpg) no-repeat center center fixed;   */
-      }
+  		body{
+    		background-color: #FFFFBF;
+    		padding-top: 40px;
+		}
 
-      .form-signin {
-        max-width: 700px;
-        padding: 19px 29px 29px;
-        margin: 0 auto 20px;
-        background-color: #fff;
-        border: 1px solid #e5e5e5;
-        -webkit-border-radius: 5px;
-           -moz-border-radius: 5px;
-                border-radius: 5px;
-        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-                box-shadow: 0 1px 2px rgba(0,0,0,.05);
-      }
-      .form-signin .form-signin-heading,
-      .form-signin .checkbox {
-        margin-bottom: 10px;
-      }
-      .form-signin input[type="text"],
-      .form-signin input[type="password"] {
-        font-size: 16px;
-        height: auto;
-        margin-bottom: 15px;
-        padding: 7px 9px;
-      }
+		.container{
+			width: 1500px;
+		}
+
+		#submitBtn{
+			margin-left: 40%;
+			margin-bottom: 5%;
+		}
+
+		.input-group-addon{
+    		background-color: rgb(50, 118, 177);
+    		border-color: rgb(40, 94, 142);
+    		color: rgb(255, 255, 255);
+		}
+
+		.form-control:focus{
+    		background-color: rgb(50, 118, 177);
+    		border-color: rgb(40, 94, 142);
+    		color: rgb(255, 255, 255);
+		}
+
+		.form-signup input[type="text"],.form-signup input[type="password"] { border: 1px solid rgb(50, 118, 177); }
 
     </style>
-    <link href="./css/bootstrap-responsive.css" rel="stylesheet">
 
   </head>
 
   <body>
 
-    <div class="container">
+  <div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h5 class="text-center">
+                        Register</h5>
+                    <form class="form form-signup" role="form" method="POST" action="/register">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                            <input id="firstName" type="text" class="form-control" placeholder="First Name" name="firstName"/>
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                            <input id="lastName" type="text" class="form-control" placeholder="Last Name" name="lastName"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span>
+                            </span>
+                            <input id="email" type="text" class="form-control" placeholder="Email Address" name="email"/>
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span>
+                            </span>
+                            <input id="mobile" type="text" class="form-control" placeholder="Mobile" name="mobile"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                            <input id="password" type="password" class="form-control" placeholder="Password" name="password"/>
+                        </div>
+                    </div>
+                </div>
+                <button id="submitBtn" class="btn btn-large btn-primary" type="submit">Sign Up</button></form>
+            </div>
+        </div>
+    </div>
+</div>
+</div> 
 
-      <form class="form-signin" method="POST" action="http://localhost:7800/register">
-        <h2 class="form-signin-heading">Buzz Guardian Signup</h2>
-        <input type="text" class="input-block-level" placeholder="First Name" name="firstName">
-        <input type="text" class="input-block-level" placeholder="Last Name" name="lastName">
-        <input type="text" class="input-block-level" placeholder="GT Email Address" name="email">
-        <input type="text" class="input-block-level" placeholder="Mobile (xxxxxxxxxx)" name="mobile">
-        <input type="password" class="input-block-level" placeholder="Password" name="password">
-        <!--<label class="checkbox">
-          <input type="checkbox" value="remember-me"> Remember me
-        </label>-->
-        <button class="btn btn-large btn-primary" type="submit">Sign Up</button>
-      </form>
+<script type="text/javascript" src="./scripts/bootstrap.js">/>
+</body>
 
-    </div> <!-- /container -->
-
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="./scripts/bootstrap.min.js"></script>
-
-</body></html>
+</html>
