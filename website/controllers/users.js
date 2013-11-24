@@ -25,14 +25,45 @@ exports.register = function(req, res, next){
 		if(err){
 			console.error("Could not register =====> " + email);
 			console.error(err);
+			res.send("Registration Error =====> " + err);
 			return;
 		}
+
+		res.redirect("/login");
 	});
 
-	res.send(email + " Successfully registered");
 };
 
 exports.serveLoginPage = function(req, res){
 	res.sendfile("/login.html", {root: "./public/"});
+};
+
+exports.login = function(req, res){
+	var email = req.param("email", null);
+	var password = req.param("password", null);
+
+	if(!email || !password){
+		res.send("Email and Password cannot be empty");
+		return;
+	}
+	
+	User.findOne({
+		email: email
+	}, function(err, user) {
+		if (err) {
+			throw err;
+		}
+		if (user) {
+			if(user.authenticate(password)){
+				/* set session email for the session. Used for authentication. */
+				req.session.email = email; 
+				res.redirect('/home');
+			}else{
+				res.redirect('/login');
+			}
+		} else {
+			res.redirect('/login');
+		}
+	});
 };
 
