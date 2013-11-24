@@ -1,4 +1,5 @@
-var express = require("expres");
+var express = require("express");
+var mongoStore = require("connect-mongo")(express);
 
 module.exports = function (app, config, passport) {
 
@@ -14,7 +15,11 @@ module.exports = function (app, config, passport) {
     app.use(express.methodOverride());
 
     app.use(express.session({
-      secret: "secret"
+      secret: "secret",
+      store: new mongoStore({
+          url: config.DATABASE_URL,
+          collection : "ers_sessions"
+        })
     }));
 
     /* use passport session */

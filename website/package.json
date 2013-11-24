@@ -7,6 +7,8 @@
 		"passport": "*",
 		"passport-local": "*",
 		"underscore": "*",
-		"crypto": "*"
+		"crypto": "*",
+		"mongoose": "*",
+		"connect-mongo": "*"
 	}
 }
