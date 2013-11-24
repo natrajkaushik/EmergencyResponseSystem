@@ -26,10 +26,6 @@ var UserSchema = new Schema({
           unique: true
         }
     },
-    password: {
-        type: String,
-        required: true
-    },
     hashed_password: {
       type: String,
       required: true
@@ -41,10 +37,10 @@ var UserSchema = new Schema({
 });
 
 
-UserSchema.virtual("password'").set(function(password) {
+UserSchema.virtual("password").set(function(password) {
   this._password = password;
-  this.salt = this.makeSalt();
-  this.hashed_password = this.encryptPassword(password);
+  this.set("salt", this.makeSalt());
+  this.set("hashed_password", this.encryptPassword(password));
 }).get(function() { 
   return this._password; });
 
@@ -110,4 +106,4 @@ UserSchema.methods = {
   }
 }
 
-mongoose.model('User', UserSchema)
+module.exports = mongoose.model('User', UserSchema)
