@@ -81,7 +81,7 @@
 
     // Function for adding a marker to the page.
     function addMarker(index, raw_location) {
-    	map.setZoom(10);
+    	map.setZoom(map.getZoom());
       	var location = new google.maps.LatLng(raw_location[0],raw_location[1]);
       	console.log(location)
       	marker = new google.maps.Marker({
@@ -90,7 +90,8 @@
         	icon: finish
       	});
       	allMarkers.push(marker);
-      	map.setZoom(15); // Zoom in after 1 sec
+      	map.setZoom(map.getZoom());
+      	//map.setZoom(15); // Zoom in after 1 sec
       	map.panTo(location);
     };
 
