@@ -1,4 +1,4 @@
-    	.navbar-custom {
+.navbar-custom {
 	background-color:#3B5998;
     color:#ffffff;
   	border-radius:0;
@@ -24,4 +24,13 @@
 }
 .navbar-custom .navbar-toggle {
   	background-color:#eeeeee;
+}
+    
+#map-container{
+  margin-left: 10%;
+}
+
+#map-canvas {
+  width: 1500px;
+  height: 650px;
 }
