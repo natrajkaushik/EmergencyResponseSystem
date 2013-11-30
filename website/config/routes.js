@@ -10,17 +10,12 @@ module.exports = function (app, passport) {
   app.post("/login", users.login);
 
   app.post("/logout", users.logout);
-  
-  //app.post("/users", users.create);
-  //app.post("/users/session", passport.authenticate("local", 
-    //{
-      //failureRedirect: "/login"
-    //}), users.session);
-  //app.get("/users/:userId", users.show);
 
   
   /*** Home ***/
   var home = require("../controllers/home.js");
   app.get("/", home.authenticate, home.index);
   app.get("/home", home.authenticate, home.index);
+
+  app.get("/locations", home.getLocations);
 };
