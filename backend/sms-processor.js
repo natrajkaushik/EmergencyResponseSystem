@@ -64,7 +64,7 @@ var SMSProcessor = function(){
 						break;
 					case "CANCEL":
 						console.log("Received CANCEL Message from [" + sms.fromNumber + "]");
-						//processCancel(sms);
+						processCancel(sms);
 						break;
 					case "TRACKING":
 						console.log("Received TRACKING Message from [" + sms.fromNumber + "]");

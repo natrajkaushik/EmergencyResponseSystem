@@ -35,7 +35,7 @@ module.exports = {
 		new Sms({
 			mobile: sms.fromNumber,
 			timestamp: new Date(parseInt(sms.timestamp)),
-			requestType: RequestType.SEND_CANCEL,
+			requestType: RequestType.CANCEL_ALERT,
 			state: State.PROCESSED,
 			latitude: parseFloat(sms.latitude),
 			longitude: parseFloat(sms.longitude)
