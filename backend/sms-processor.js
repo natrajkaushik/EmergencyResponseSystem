@@ -1,4 +1,6 @@
 var Config = require("./config.js");
+var PoliceContactHelper = require("./police-contact-helper.js");
+var ReverseGeoCode = require("./reverse-geocode.js");
 
 var GoogleVoice = require("./google-voice-helper.js")({
 	email: Config.BUZZGUARDIAN_EMAIL,
@@ -137,18 +139,30 @@ var SMSProcessor = function(){
 			policeSmsTime: current,
 			timeTaken: current - smsTime
 		});
-		/*GoogleVoice.sendSMS(Config.POLICE_NUMBER_WITHIN, "Help", function(error, response, data){
-			if(error){
-				console.error(error);
-			}
-		});*/
 
-		/* remove the SMS from pending queue after an hour */
-		sms.processed = true;
-		setTimeout(function(){
-			pendingQueue.remove(sms.fromNumber);
-		}, Config.Policy.USER_TIMEOUT);
-		
+		var onReverseCode = function(data){
+			var policeMessage = sms.fromNumber + " needs HELP at " + data;
+
+			GoogleVoice.sendSMS(PoliceContactHelper.getPoliceNumber({
+				latitude: sms.latitude,
+				longitude: sms.longitude
+			}), policeMessage, function(error, response, data){
+				if(error){
+					console.error(error);
+				}
+			});
+
+			/* remove the SMS from pending queue after an hour */
+			sms.processed = true;
+			setTimeout(function(){
+				pendingQueue.remove(sms.fromNumber);
+			}, Config.Policy.USER_TIMEOUT);
+		};
+
+		ReverseGeoCode.getAddress({
+			latitude: sms.latitude,
+			longitude: sms.longitude	
+		}, onReverseCode);
 	};
 
 	/* Remove the entry for the number from the Tracking Queue */
@@ -160,6 +174,9 @@ var SMSProcessor = function(){
 };
 
 
+(function main(){
+	console.log("Starting the Emergency Response System Backend");
+	(new SMSProcessor());
+})();
 
-(new SMSProcessor());
 

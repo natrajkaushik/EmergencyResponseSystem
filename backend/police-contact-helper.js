@@ -30,7 +30,7 @@ var PoliceContactHelper = {
         var sindLng = Math.sin(longDiff / 2);
         var a = Math.pow(sindLat, 2) + Math.pow(sindLng, 2) * Math.cos(toRad(point1.latitude)) * Math.cos(toRad(point2.latitude));
         var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-        var dist = EARTH_RADIUS * c;
+        var dist = this.EARTH_RADIUS * c;
 
         return dist;
     },
@@ -39,14 +39,22 @@ var PoliceContactHelper = {
      * returns true if the point is within the Georgia Tech Campus
      */
     insideGeorgiaTech: function(point){
-    	return this.getEarthDistance(this.origin.GTCENTER_LAT, this.origin.GTCENTER_LON, point.latitude, point.longitude) <= this.origin.GT_CAMPUS_RADIUS;
+    	return this.getEarthDistance({latitude: this.origin.GTCENTER_LAT, longitude:this.origin.GTCENTER_LON},
+            {latitude: point.latitude, longitude: point.longitude}) <= this.GT_CAMPUS_RADIUS;
     },
            
     getPoliceNumber: function(point){
-    	insideGeorgiaTech(point) ? Config.POLICE_NUMBER_WITHIN : Config.POLICE_NUMBER_WITHOUT;
+    	return this.insideGeorgiaTech(point) ? Config.POLICE_NUMBER_WITHIN : Config.POLICE_NUMBER_WITHOUT;
     }  
        
         
 };
+
+// (function main(){
+//     console.log(PoliceContactHelper.getPoliceNumber({
+//         latitude: 33.7771,
+//         longitude: -84.3978
+//     }));  
+// })();
 
 module.exports = PoliceContactHelper;

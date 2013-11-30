@@ -19,13 +19,13 @@ var ReverseGeoCode = {
 	}
 };
 
-(function main(){
-	ReverseGeoCode.getAddress({
-		latitude: 33.75,
-		longitude: -84.40
-	}, function(address){
-		console.log(address);
-	})
-})();
+// (function main(){
+// 	ReverseGeoCode.getAddress({
+// 		latitude: 33.75,
+// 		longitude: -84.40
+// 	}, function(address){
+// 		console.log(address);
+// 	})
+// })();
 
 module.exports = ReverseGeoCode;
