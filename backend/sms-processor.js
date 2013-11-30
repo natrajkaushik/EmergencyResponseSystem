@@ -1,5 +1,12 @@
-var GoogleVoice = require("./google-voice-helper.js");
 var Config = require("./config.js");
+
+var GoogleVoice = require("./google-voice-helper.js")({
+	email: Config.BUZZGUARDIAN_EMAIL,
+	password: Config.BUZZGUARDIAN_PASSWORD,
+	tokens: "./tokens.json"
+});
+
+
 var HashMap = require("./hash-map.js");
 var DbLogger = require("./db-logger.js");
 
@@ -107,6 +114,8 @@ var SMSProcessor = function(){
 	var processTracking = function(sms){
 		/* log to db */
 		DbLogger.logTracking(sms);
+
+		console.log("Tracking SMS =====> " + sms);
 
 		trackingQueue.put(sms.fromNumber, sms);
 	};
