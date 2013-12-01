@@ -90,7 +90,7 @@
         	icon: finish
       	});
       	allMarkers.push(marker);
-      	map.setZoom(map.getZoom());
+      	//map.setZoom(map.getZoom());
       	//map.setZoom(15); // Zoom in after 1 sec
       	map.panTo(location);
     };
