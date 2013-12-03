@@ -11,6 +11,8 @@ module.exports = function (app, passport) {
 
   app.post("/logout", users.logout);
 
+  app.get("/users", users.getUsers);
+
   
   /*** Home ***/
   var home = require("../controllers/home.js");

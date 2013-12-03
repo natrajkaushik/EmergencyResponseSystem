@@ -33,6 +33,9 @@ var UserSchema = new Schema({
     salt: {
       type: String,
       required: true
+    },
+    imageUrl: {
+      type: String
     }
 });
 

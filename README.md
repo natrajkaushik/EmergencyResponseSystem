@@ -14,6 +14,16 @@ Installations Steps
 6) Run mongod --dbpath="pathto/data/db" in a separate terminal
 7) Run node sms-processor.js to start the main process.
 
+Police
+==========
+police@gatech.edu:police +16787758612 Gatech Police
+
+Users
+==========
+nmocherla3@gatech.edu:nmocherla3 +14042195898 Natraj
+smanchem3@gatech.edu:smanchem3 +14043761416 Sandeep
+
+
 
 
 

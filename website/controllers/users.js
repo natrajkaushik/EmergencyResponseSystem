@@ -72,3 +72,28 @@ exports.logout = function(req, res){
 	res.status(302).redirect("/login");
 };
 
+exports.getUsers = function(req, res){
+	var result = [];
+	User.find(function(err, users){
+		if(err){
+			console.error(err);
+			return;
+		}else{
+			if(users && users.length){
+				for(var i = 0; i < users.length; i++){
+					if(users[i].email !== "police@gatech.edu"){
+						result.push({
+							name: users[i].firstName + " " + users[i].lastName,
+							email: users[i].email,
+							mobile: users[i].mobile,
+							imageUrl: users[i].imageUrl
+						});
+					}
+				}
+			}
+
+			res.send(result);
+		}
+	});
+};
+

@@ -28,9 +28,30 @@
     
 #map-container{
   margin-left: 10%;
+  float:left;
 }
 
 #map-canvas {
-  width: 1500px;
+  width: 1100px;
   height: 650px;
+}
+
+#user-container{
+  margin-top: 6%;
+}
+
+
+
+.glyphicon {  margin-bottom: 10px;margin-right: 10px;}
+
+small {
+display: block;
+line-height: 1.428571429;
+color: #999;
+}
+
+#user-info{
+  float:right;
+  margin-top:-50%;
+  margin-right:-31%;
 }

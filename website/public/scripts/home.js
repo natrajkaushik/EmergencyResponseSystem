@@ -16,52 +16,44 @@
 	var lastUpdate = '0';
 	var allMarkers = [];
 
-    function autoUpdate() {
+  function autoUpdate() {
     	$.ajax({
         	type: "GET",
         	url: "/locations",
         	dataType: 'json'
-        }).done(function(jsonData){
-    			// 1. Check if jsonData is empty. If empty skip to 4.
-          		//    Else we received some fresh data.
-          		//
-          		console.log(jsonData);
-          		if(!jQuery.isEmptyObject(jsonData)) {
+      }).done(function(jsonData){
+        // 1. Check if jsonData is empty. If empty skip to 4.
+        //    Else we received some fresh data.
+        if(!jQuery.isEmptyObject(jsonData)) {
 
-            		// 2. Update lastUpdate from the jsonData with the timestamp from
-            		//    the server. Don't use JavaScript to update the timestamp,
-            		//    because the time on the client and on the server will
-            		//    never be exactly in sync.
-            		//
+          // 2. Update lastUpdate from the jsonData with the timestamp from
+          //    the server. Don't use JavaScript to update the timestamp,
+          //    because the time on the client and on the server will
+          //    never be exactly in sync.
 
-            		lastUpdate = jsonData.timestamp;
+          lastUpdate = jsonData.timestamp;
 
-            		// 3. Add new markers on Google Map.
-            		//
+          // 3. Add new markers on Google Map.
+          var locations = jsonData.locations;
+          
+          $.each(locations, addMarker);
 
-            		var locations = jsonData.locations;
-
-
-            		$.each(locations, addMarker);
-
-            		for (var i=0; i < allMarkers.length; i++) {
-						if (i == 0) {
-                			allMarkers[i].setIcon(start)
-              			}
-
-              			else if (i == allMarkers.length - 1) {
-                			allMarkers[i].setIcon(finish)
-              			}
-
-              			else {
-							allMarkers[i].setIcon(path)
-              			}	
-            		}
+          for(var i=0; i < allMarkers.length; i++) {
+					   if (i == 0) {
+                allMarkers[i].setIcon(start)
+                }
+              else if (i == allMarkers.length - 1) {
+                allMarkers[i].setIcon(finish)
+              }
+              else {
+							 allMarkers[i].setIcon(path)
+              }	
+            }
 
 				}
-          		// 4. Relaunch the autoUpdate() function in 5 seconds.
-          		setTimeout(autoUpdate, 5000);
-        	});
+        // 4. Relaunch the autoUpdate() function in 5 seconds.
+        setTimeout(autoUpdate, 5000);
+        });
     }
 
     var map;
@@ -71,11 +63,13 @@
 
     function initialize() {
     	var gatech = new google.maps.LatLng(33.77658,-84.38993);
-      	var mapOptions = {
+      	
+      var mapOptions = {
         	zoom: 15,
         	center: gatech,
         	mapTypeId: google.maps.MapTypeId.ROADMAP
-      	};
+      };
+
       	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
     };
 
@@ -90,12 +84,70 @@
         	icon: finish
       	});
       	allMarkers.push(marker);
-      	//map.setZoom(map.getZoom());
-      	//map.setZoom(15); // Zoom in after 1 sec
       	map.panTo(location);
     };
 
     initialize();
     autoUpdate();
+
+    var userData;
+
+    var getUsers = function(){
+      $.ajax({
+        url: "/users",
+          type: "GET",
+      }).done(function(data){
+        if(data && data.length){
+          userData = data;
+          for(var i = 0; i < data.length; i++){
+             $('.selectpicker').append($("<option></option>").attr("value",data[i].name).attr("id", data[i].email).text(data[i].name)); 
+             $("#user-container").append(getUserInfoHTML(data[0]));
+          }
+        }
+        $('.selectpicker').selectpicker();
+      });  
+    };
+
+    getUsers();
+
+    var getUserInfoHTML = function(data){
+      var html =  "<div id=\"user-info-container\" class=\"container\">" + 
+        "<div class=\"row\">" + 
+            "<div id=\"user-info\" class=\"col-xs-12 col-sm-6 col-md-6\">" +
+            "<div class=\"well well-sm\">" + 
+                "<div class=\"row\">" + 
+                    "<div class=\"col-sm-6 col-md-4\">" + 
+                        "<img src=" + data.imageUrl + " class=\"img-rounded img-responsive\" />"+
+                    "</div>" + 
+                    "<div class=\"col-sm-6 col-md-8\">" + 
+                        "<h4>" + data.name + 
+                          "</h4>" + 
+                        "<small><cite title=\"Atlanta, USA\">" + data.mobile + "<i class=\"glyphicon glyphicon-map-marker\">" + 
+                        "</i></cite></small>" + 
+                        "<p>" + 
+                            "<i class=\"glyphicon glyphicon-envelope\"></i>" + data.email + "<br />" +                            
+                        "</div>" + 
+                    "</div>" +
+                "</div>" + 
+            "</div>" + 
+        "</div>" + 
+      "</div>";
+
+      return html;
+    };
+
+    /* Displaying user info on select */
+    $(".selectpicker").change(function(){
+      $( "select option:selected" ).each(function() {
+        $("#user-info-container").remove();
+
+        var id = $(this).attr("id");
+        for(var j = 0; j < userData.length; j++){
+          if(userData[j].email === id){
+            $("#user-container").append(getUserInfoHTML(userData[j]));  
+          }
+        }
+      });
+    });
 
 });
