@@ -1,9 +1,9 @@
 var config = require("../config.js");
 
 var GoogleVoice = require("../google-voice-helper.js")({
-	email: config.BUZZGUARDIAN_TEST_EMAIL_RAMYA,
-	password: config.BUZZGUARDIAN_TEST_PASSWORD_RAMYA,
-	tokens: "./tests/tokens.json"
+	email: config.BUZZGUARDIAN_TEST_EMAIL_DHEERAJ,
+	password: config.BUZZGUARDIAN_TEST_PASSWORD_DHEERAJ,
+	tokens: "./tests/tokens2.json"
 });
 
 
@@ -71,8 +71,8 @@ var cancelTest = function(){
 };
 
 (function main(){
-	//emergencyTest();
-	cancelTest();
+	emergencyTest();
+	//cancelTest();
 }());
 
 
