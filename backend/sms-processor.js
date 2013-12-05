@@ -134,6 +134,8 @@ var SMSProcessor = function(){
 		console.log("Sending SMS to Police");
 		var current = new Date();
 		console.log("Time just before sending SMS to Police by " + sms.fromNumber + " =====> " + current);
+=======
+		console.log("Sending SMS to Police at =====> " + current);
 		var smsTime = new Date(parseInt(sms.timestamp));
 		DbLogger.logStats({
 			smsTime: smsTime,
