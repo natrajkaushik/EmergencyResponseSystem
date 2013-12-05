@@ -1,5 +1,7 @@
  $(document).ready(function(){
 
+  var currentUser;
+
  	var assignEventHandlers = function(){
  		$("#logoutLnk").click(function(){
 			$.ajax({
@@ -13,15 +15,16 @@
 	
 	assignEventHandlers();
 
-	var lastUpdate = '0';
+	var lastUpdate = new Date();
 	var allMarkers = [];
 
   function autoUpdate() {
     	$.ajax({
         	type: "GET",
-        	url: "/locations",
+        	url: "/locations/?mobile=" + encodeURIComponent(currentUser) + "&timestamp=" + lastUpdate,
         	dataType: 'json'
       }).done(function(jsonData){
+        console.log(jsonData);
         // 1. Check if jsonData is empty. If empty skip to 4.
         //    Else we received some fresh data.
         if(!jQuery.isEmptyObject(jsonData)) {
@@ -77,7 +80,6 @@
     function addMarker(index, raw_location) {
     	map.setZoom(map.getZoom());
       	var location = new google.maps.LatLng(raw_location[0],raw_location[1]);
-      	console.log(location)
       	marker = new google.maps.Marker({
         	position: location,
         	map: map,
@@ -88,7 +90,7 @@
     };
 
     initialize();
-    autoUpdate();
+   
 
     var userData;
 
@@ -100,8 +102,10 @@
         if(data && data.length){
           userData = data;
           for(var i = 0; i < data.length; i++){
-             $('.selectpicker').append($("<option></option>").attr("value",data[i].name).attr("id", data[i].email).text(data[i].name)); 
+             $('.selectpicker').append($("<option></option>").attr("value",data[i].name).attr("id", data[i].mobile).text(data[i].name)); 
              $("#user-container").append(getUserInfoHTML(data[0]));
+             currentUser = data[0].mobile;
+             autoUpdate();
           }
         }
         $('.selectpicker').selectpicker();
@@ -142,9 +146,10 @@
         $("#user-info-container").remove();
 
         var id = $(this).attr("id");
+        currentUser = id;
         for(var j = 0; j < userData.length; j++){
-          if(userData[j].email === id){
-            $("#user-container").append(getUserInfoHTML(userData[j]));  
+          if(userData[j].mobile === id){
+            $("#user-container").append(getUserInfoHTML(userData[j]));
           }
         }
       });
