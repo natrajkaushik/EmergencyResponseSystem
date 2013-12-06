@@ -27,7 +27,7 @@
         console.log(jsonData);
         // 1. Check if jsonData is empty. If empty skip to 4.
         //    Else we received some fresh data.
-        if(!jQuery.isEmptyObject(jsonData)) {
+        if(!jQuery.isEmptyObject(jsonData.locations)) {
 
           // 2. Update lastUpdate from the jsonData with the timestamp from
           //    the server. Don't use JavaScript to update the timestamp,
@@ -101,10 +101,10 @@
       }).done(function(data){
         if(data && data.length){
           userData = data;
+          currentUser = data[0].mobile;
           for(var i = 0; i < data.length; i++){
              $('.selectpicker').append($("<option></option>").attr("value",data[i].name).attr("id", data[i].mobile).text(data[i].name)); 
              $("#user-container").append(getUserInfoHTML(data[0]));
-             currentUser = data[0].mobile;
              autoUpdate();
           }
         }

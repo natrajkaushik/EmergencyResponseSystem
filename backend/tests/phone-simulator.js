@@ -10,7 +10,6 @@ var GoogleVoice = require("../google-voice-helper.js")({
 /* Sends 1 Emergency Message followed by 10 Tracking Messages */
 var emergencyTest = function(){
 	var EMERGENCY_MESSAGE = "=== BuzzGuardian ===\n EMERGENCY\n" + "latitude= " + "33.7771" + "\nlongitude= " + "-84.3978" + "\ntimestamp= " + (new Date());
-	var TRACKING_MESSAGE = "=== BuzzGuardian ===\n TRACKING\n" + "latitude= " + "33.7771" + "\nlongitude= " + "-84.3978" + "\ntimestamp= " + (new Date());
 
 	var numTracking = 0;
 	var timer;
@@ -33,7 +32,7 @@ var emergencyTest = function(){
 		}else{
 			console.log("Sent Emergency Message to =====> " + config.BUZZGUARDIAN_NUMBER);
 			timer = setInterval(function(){
-				GoogleVoice.sendSMS(config.BUZZGUARDIAN_NUMBER, TRACKING_MESSAGE, onSendTracking);	
+				GoogleVoice.sendSMS(config.BUZZGUARDIAN_NUMBER, getTrackingMessage(), onSendTracking);	
 			}, config.TRACKING_FREQUENCY);
 		}
 	};
@@ -70,9 +69,23 @@ var cancelTest = function(){
 	GoogleVoice.sendSMS(config.BUZZGUARDIAN_NUMBER, EMERGENCY_MESSAGE, onSendEmergency);
 };
 
+var getLatitude = function(){
+	var random = Math.floor(Math.random() * 5);
+	return "33.777" + random.toString();
+};
+
+var getLongitude = function(){
+	var random = Math.floor(Math.random() * 5);
+	return "-84.397" + random.toString();
+};
+
+var getTrackingMessage = function(){
+	return "=== BuzzGuardian ===\n TRACKING\n" + "latitude= " + getLatitude() + "\nlongitude= " + getLongitude() + "\ntimestamp= " + (new Date());
+};
+
 (function main(){
-	//emergencyTest();
-	cancelTest();
+	emergencyTest();
+	//cancelTest();
 }());
 
 
